@@ -5,6 +5,7 @@ import nltk
 from nltk.corpus import words
 from nltk.corpus import stopwords
 
+nltk.download('words')
 nltk.download('stopwords')
 consumer_key = 't1JTH5TvboQRstLSwsk0J6s6x'
 consumer_secret = 'xlzrpRpmUvTOy2aMOBtbeIOTgDzGl7w3ECfdFtbtScJosYASts'
@@ -14,7 +15,6 @@ access_token_secret = 'gAU9oC8RDHiSnJE2Gq52XAc0wg714370z8HdgslKSXrD2'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-search_string = 'Dune OR Venom'
 
 
 def get_data(search_string):

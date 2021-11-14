@@ -1,25 +1,31 @@
-from flask import Flask, render_template
-import get_tweets
 import pickle
 
+from flask import Flask, request, render_template
+
+import get_tweets
 
 sentiModel = pickle.load(open("finalized_model.sav", "rb"))
 
 app = Flask(__name__)
 
+@app.route("/")
+def hello():
+   return render_template('index.html')
 
-@app.route('/')
+@app.route('/sentiment', methods=['POST','GET'])
 def hello_world():  # put application's code here
-    final_df = get_tweets.get_data('Dune OR Venom')
-    print(final_df)
+    movie_name = request.form['movie_name']
+    final_df = get_tweets.get_data(movie_name)
+
     tweet_list = []
     tweet_list = final_df['text'].tolist()
-    print(type(tweet_list))
-    print(tweet_list)
     sentiModel = pickle.load(open("finalized_model.sav", "rb"))
     output_list = list(sentiModel.predict(tweet_list))
     listToStr = ' '.join([str(elem) for elem in output_list])
-    return listToStr
+
+    for i in range(len(output_list)):
+        final_df.loc[final_df.index[i], 'sentiment'] = output_list[i]
+    return render_template('sentiment.html',  tables=[final_df.to_html(classes='data')], titles=final_df.columns.values)
 
 
 if __name__ == '__main__':
