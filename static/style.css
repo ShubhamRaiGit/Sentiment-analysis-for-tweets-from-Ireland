@@ -1,0 +1,19 @@
+.movie {
+    font-size: 11pt;
+    border-collapse: collapse;
+    border: 2px;
+
+}
+
+.movie td, th {
+    padding: 10px;
+}
+
+.movie tr:nth-child(even) {
+    background: #E0E0E0;
+}
+
+.movie tr:hover {
+    background: #BEBEBE;
+    cursor: pointer;
+}

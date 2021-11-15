@@ -1,12 +1,13 @@
 import pickle
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 
 import get_tweets
 
 sentiModel = pickle.load(open("finalized_model.sav", "rb"))
 
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route("/")
 def hello():
@@ -25,7 +26,12 @@ def hello_world():  # put application's code here
 
     for i in range(len(output_list)):
         final_df.loc[final_df.index[i], 'sentiment'] = output_list[i]
-    return render_template('sentiment.html',  tables=[final_df.to_html(classes='data')], titles=final_df.columns.values)
+    cnt_of_pos_neg = list(final_df['sentiment'].value_counts())
+    df_final=final_df['text']
+    final=df_final.to_frame()
+    tweets=final.rename(columns={"text": "Tweets"})
+    tweets.index = tweets.index + 1
+    return render_template('sentiment.html',  tables=[tweets.to_html(classes='movie')], titles='',cnt_of_pos_neg=cnt_of_pos_neg)
 
 
 if __name__ == '__main__':
