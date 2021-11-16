@@ -1,41 +1,49 @@
-{% block content %}
-
 <html lang="en">
 <head>
-  <title>Assignment 2</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="card">
+<div>
 
-		<div style="padding:50px; margin: 20px; border: solid 15px;">
-		<h2 class="title text-center" style="padding-bottom: 75px;"> Cloud Technologies Assignment 2 </h2>
+    <div style="padding:50px; margin: 20px; border: solid 15px;">
 
 
-   	<form action = "http://127.0.0.1:5000/sentiment" method = "POST" >
+        <form action="http://127.0.0.1:5000/sentiment" method="POST">
 
-		<div class="row">
-			<div class="col-sm-6">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/P_Movie.svg" alt="Movie" />
-			</div>
-			<div class="col-sm-6">
-				<div class="form-group">
- 	       			 <label for="movie_name">Enter Movie Name</label>
-					 <input id="movie_name" name="movie_name" placeholder="Type Here" class="form-control"></input>
-				</div>
+            <div class="row">
+                <div class="col-sm-6" style=" height:70%;display:flex;justify-content:center;">
+                    <img style="height:470px; width:470px;" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/P_Movie.svg" alt="Movie"/>
+                </div>
+                <div class="col-sm-6">
 
-				<div class="form-group">
-        			<button type="submit" class="btn btn-success">Submit</button>
-    			</div>
-			</div>
-		</div>
+                    <div class="col-xs-8">
+                        <h1 class="title text-center" style="padding-bottom: 10px;">MTweets</h1>
+                        <h3 class="title text-center" style="padding-bottom: 60px;"> CA 675 Assignment 2 </h3>
+                        <h4 class="text">"MTweets" displays the thoughts and emotions of the people of Ireland regarding
+                            the latest movies</h4>
+                        <h4 style="padding-top: 30px;padding-bottom: 30px;">To get started, enter movie name
+                            below...</h4>
 
-	</form>
-			</div>
-	</div>
+                        <div class="form-group">
+                            <label for="movie_name">Enter Movie Name</label>
+                            <input id="movie_name" name="movie_name" placeholder="Type Here" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
-{% endblock content %}
+

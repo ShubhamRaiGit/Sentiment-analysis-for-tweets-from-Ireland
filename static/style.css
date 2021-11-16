@@ -1,8 +1,11 @@
 .movie {
     font-size: 11pt;
-    border-collapse: collapse;
-    border: 2px;
+    border-collapse: inherit !important;
+}
 
+.movie thead th{
+    color: #fff;
+    background-color: #212529;
 }
 
 .movie td, th {
@@ -15,5 +18,10 @@
 
 .movie tr:hover {
     background: #BEBEBE;
-    cursor: pointer;
+}
+
+.chart-size{
+    width:560px;
+    height:560px;
+    margin:auto;
 }

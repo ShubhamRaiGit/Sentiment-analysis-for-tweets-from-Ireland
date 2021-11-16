@@ -2,90 +2,88 @@
 
 <html lang="en">
 <head>
-  <title>Assignment 2</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 </head>
 
 <body>
-    	<div class="card">
+<div class="card">
 
-		    <div style="padding:50px; margin: 20px; border: solid 15px;">
+    <div style="padding:40px; margin: 20px; border: solid 15px; padding-top: 0px; padding-bottom: 0px;">
 
-                <h2 class="title text-center" style="padding-bottom: 75px;"> Sentiment Analysis </h2>
-
-
-                <div class="row">
-                     <div class="col-sm-6">
-                     {% for table in tables %}
-                        <tr>
-                            <td> {{titles[loop.index]}}</td>
-                            <td> {{ table|safe }}</td>
-                        </tr>
-                      {% endfor %}
-
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div>
-                            <canvas id="myChart" width="50px" height="50px"></canvas>
-                        </div>
-                    </div>
-
-                </div>
+        <h2 class="title text-center" style="padding-bottom: 10px;"> Sentiment Analysis </h2>
 
 
-
+        <div class="row" style="padding-bottom: 20px;">
+            <div class="col-sm-6">
+                {% for table in tables %}
+                {{titles[loop.index]}}
+                {{ table|safe }}
+                {% endfor %}
             </div>
 
+            <div class="col-sm-6 chart-size">
+                <div>
+                    <canvas id="sentimentChart" width="50px" height="50px"></canvas>
+                    <canvas id="pie-chart"></canvas>
+                </div>
+            </div>
 
         </div>
 
+
+    </div>
+
+
+</div>
+
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
 <script type="text/javascript">
 
+    //Labels
+    let labels = ["Positive","Negative"];
 
-    var a={{cnt_of_pos_neg}}
-    console.log(a);
-
+    //Count of positive and negative tweets
+    var score={{cnt_of_pos_neg}}
     let data_count = [];
 
-    for (let i=0; i<a.length; i++) {
-        let count = a[i];
+    for (let i=0; i<score.length; i++) {
+        let count = score[i];
         data_count.push(count);
     }
 
-    let data =   [{{cnt_of_pos_neg}},{{cnt_of_pos_neg}}];
-    let labels = ["Positive","Negative"];
-            // Pie chart
-            new Chart(document.getElementById("myChart"), {
-            type: 'pie',
-            data: {
+    //Chart Initialization
+    var ctx = document.getElementById("sentimentChart");
+
+
+          // Pie chart
+          new Chart(ctx, {
+          type: 'pie',
+          data: {
                 labels: labels,
-                datasets: [
-              {
-                label: "Sentimental Analysis",
-                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                data: data_count
-              }
-            ]
+                datasets: [{
+                backgroundColor: ["#3e95cd", "#8e5ea2"],
+                data: data_count,
+                borderWidth:1
+              }]
           },
-          options: {
-            legend: { display: false },
-            title: {
+        options: {
+            title:{
               display: true,
-              text: 'Provinces Population'
+              text: 'Sentimental Analysis Chart'
+            },
+            plugins:{
+
             }
-          }
-      });
+          },
 
-     </script>
-
-
-
-
+        });
+</script>
 </html>

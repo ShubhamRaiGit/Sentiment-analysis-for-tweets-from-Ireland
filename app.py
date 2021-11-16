@@ -14,7 +14,7 @@ def hello():
    return render_template('index.html')
 
 @app.route('/sentiment', methods=['POST','GET'])
-def hello_world():  # put application's code here
+def get_movie_tweets():
     movie_name = request.form['movie_name']
     final_df = get_tweets.get_data(movie_name)
 
@@ -31,7 +31,7 @@ def hello_world():  # put application's code here
     final=df_final.to_frame()
     tweets=final.rename(columns={"text": "Tweets"})
     tweets.index = tweets.index + 1
-    return render_template('sentiment.html',  tables=[tweets.to_html(classes='movie')], titles='',cnt_of_pos_neg=cnt_of_pos_neg)
+    return render_template('sentiment.html',  tables=[tweets.to_html(classes='movie')], titles='', cnt_of_pos_neg=cnt_of_pos_neg)
 
 
 if __name__ == '__main__':
