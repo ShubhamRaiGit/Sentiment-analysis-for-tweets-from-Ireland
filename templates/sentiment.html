@@ -5,7 +5,7 @@
     <title>Assignment 2</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 </head>
@@ -13,10 +13,14 @@
 <body>
 <div class="card">
 
+
     <div style="padding:40px; margin: 20px; border: solid 15px; padding-top: 0px; padding-bottom: 0px;">
 
-        <h2 class="title text-center" style="padding-bottom: 10px;"> Sentiment Analysis </h2>
-
+        <div>
+            <a href="http://127.0.0.1:5000/ " class="btn btn-primary">Back</a>
+            <h2 class="title text-center" style="padding-bottom: 20px;display: inline-block;padding-left: 36%;">
+                Sentiment Analysis </h2>
+        </div>
 
         <div class="row" style="padding-bottom: 20px;">
             <div class="col-sm-6">
@@ -42,47 +46,69 @@
 
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
 <script type="text/javascript">
-
-    //Labels
-    let labels = ["Positive","Negative"];
 
     //Count of positive and negative tweets
     var score={{cnt_of_pos_neg}}
     let data_count = [];
-
     for (let i=0; i<score.length; i++) {
         let count = score[i];
         data_count.push(count);
     }
 
-    //Chart Initialization
-    var ctx = document.getElementById("sentimentChart");
+    //Labels for pie chart
+    let labels = ["Positive","Negative"];
 
+    //Data for pie chart
+        var data = [{
+            data: data_count,
+            backgroundColor: [
+                "#3e95cd", "#8e5ea2"
+            ],
+            borderColor: "#fff"
+        }];
 
-          // Pie chart
-          new Chart(ctx, {
-          type: 'pie',
-          data: {
-                labels: labels,
-                datasets: [{
-                backgroundColor: ["#3e95cd", "#8e5ea2"],
-                data: data_count,
-                borderWidth:1
-              }]
-          },
-        options: {
+    //Options for pie chart
+        var options = {
+            tooltips: {
+                enabled: false
+            },
+            legend: {
+                position: 'bottom',
+                    labels: {
+                        fontColor: "black",
+                    }
+            },
             title:{
               display: true,
               text: 'Sentimental Analysis Chart'
             },
-            plugins:{
-
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => {
+                        sum += data;
+                     });
+                    let percentage = (value*100 / sum).toFixed(2)+"%";
+                    return percentage
+                    },
+                    color: '#fff',
             }
-          },
+        }
+    };
 
-        });
+        //Chart Display
+        var ctx = document.getElementById("sentimentChart");
+        var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: data
+        },
+            options: options
+    });
+
 </script>
 </html>
