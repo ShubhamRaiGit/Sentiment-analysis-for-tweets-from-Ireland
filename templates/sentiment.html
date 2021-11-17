@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <title>Assignment 2</title>
+    <title>Assignment 2 : Group 7</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -109,6 +109,20 @@
         },
             options: options
     });
+
+
+
+
+$( ".movie > tbody > tr").each(function(i) {
+    var test = $(this).find("td:first").next().html();
+    console.log(test);
+    if(test.indexOf("positive")!=-1){
+        $(this).css( "background-color", "#8ac0e3" )
+        }
+    else{
+        $(this).css( "background-color", "#c4a3d1" )
+    }
+ });
 
 </script>
 </html>
